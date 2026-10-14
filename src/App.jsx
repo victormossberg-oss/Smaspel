@@ -787,33 +787,33 @@ const togglePreview = () => {
   <p>🎯 Omgång {round}</p>
   <p>⭐ Poäng: {score}</p>
 
+  
+{gameMode !== "match" && (
   <button
+    onClick={async () => {
+      const newMatch = createMatch();
 
-onClick={async () => {
-  const newMatch = createMatch();
+      const firstSong = await getMatchSong(newMatch[0], []);
 
-  const firstSong = await getMatchSong(newMatch[0], []);
+      if (!firstSong) {
+        alert("Kunde inte hitta låten. Försök igen!");
+        return;
+      }
 
-  if (!firstSong) {
-    alert("Kunde inte hitta låten. Försök igen!");
-    return;
-  }
-
-
-
-  setMatchSongs(newMatch);
-  setMatchRound(0);
-  setMatchScore(0);
-  setUsedMatchTrackIds(firstSong ? [firstSong.trackId] : []);
-  setUsedMatchSongs([firstSong]);
-  setTodaysSong(firstSong);
-  setGameMode("match");
-}}
-
+      setMatchSongs(newMatch);
+      setMatchRound(0);
+      setMatchScore(0);
+      setUsedMatchTrackIds([firstSong.trackId]);
+      setUsedMatchSongs([firstSong]);
+      setTodaysSong(firstSong);
+      setGameMode("match");
+    }}
     className="mt-4 border border-gray-300 px-5 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
   >
     ⚔️ Utmana en vän
   </button>
+)}
+
 </div>
 
       </main>
