@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { songs } from "./data/songs";
+import { Disc3, Trophy } from "lucide-react";
 
 function getRandomSong(playedSongs) {
   const availableSongs = songs.filter(
@@ -398,11 +399,54 @@ const togglePreview = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
       <main className="w-full max-w-xl">
 
-        <h1 className="text-4xl font-bold text-center mb-8">
-          
-        </h1>
+{gameMode === "endless" && (
+  <div className="grid grid-cols-2 gap-3 mb-5 max-w-sm mx-auto">
+    <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+      <div className="flex items-center gap-2 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+        <Disc3 className="w-5 h-5 text-orange-500" />
+        Omgång
+      </div>
+      <p className="text-2xl font-extrabold text-gray-900 mt-1">
+        {String(round).padStart(2, "0")}
+        <span className="text-sm font-medium text-gray-400"> / ∞</span>
+      </p>
+    </div>
 
+    <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+      <div className="flex items-center gap-2 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+        <Trophy className="w-5 h-5 text-orange-500" />
+        Poäng
+      </div>
+      <p className="text-2xl font-extrabold text-gray-900 mt-1">
+        {score}
+        <span className="text-sm font-medium text-gray-400"> p</span>
+      </p>
+    </div>
+  </div>
+)}
+
+
+
+        
         <div className="bg-white rounded-3xl shadow-lg p-8">
+
+
+{gameMode === "endless" && (
+  <div className="flex items-center justify-center gap-1 mb-8">
+    <img
+      src="/favicon.png"
+      alt=""
+      className="w-9 h-9 object-contain"
+    />
+
+    <h1 className="text-3xl font-extrabold text-black">
+      Låt<span className="text-orange-500">jakten</span>
+    </h1>
+  </div>
+)}
+
+
+
           {gameMode === "match" && !gameFinished && (
   <div className="text-center">
     <h2 className="text-3xl font-bold">
@@ -492,11 +536,14 @@ const togglePreview = () => {
   disabled={!selectedSong}
   className="w-full mt-4 bg-black text-white py-4 rounded-xl font-bold text-lg disabled:opacity-40 hover:bg-gray-800 transition"
 >
+  
   <span className="block">
     {selectedSong
       ? `Gissa · ${points[attempt]} poäng`
       : "Välj en låt"}
   </span>
+
+  
 
   {selectedSong && (
     <span className="block text-sm font-normal text-gray-300 mt-1">
@@ -506,6 +553,13 @@ const togglePreview = () => {
     </span>
   )}
 </button>
+
+{result === "wrong" && (
+  <p className="mt-6 text-center text-red-600 font-bold text-xl">
+    ❌ Fel! Försök igen.
+  </p>
+)}
+
 
 
     <button
@@ -520,6 +574,7 @@ const togglePreview = () => {
           {/* SPELA */}
           {gameMode === "endless" && !gameFinished && (
             <>
+            
               <button
                 onClick={playAudio}
                 className="w-24 h-24 mx-auto mb-8 flex items-center justify-center bg-black text-white rounded-full text-3xl hover:scale-105 transition"
@@ -783,38 +838,58 @@ const togglePreview = () => {
 
         </div>
 
-<div className="text-center mt-6 text-gray-500">
-  <p>🎯 Omgång {round}</p>
-  <p>⭐ Poäng: {score}</p>
 
-  
-{gameMode !== "match" && (
-  <button
-    onClick={async () => {
-      const newMatch = createMatch();
+{gameMode === "endless" && (
+  <div className="text-center mt-6 text-gray-500">
+    
 
-      const firstSong = await getMatchSong(newMatch[0], []);
+    <button
+      onClick={() => {
+        stopAudio();
+        setScore(0);
+        setRound(1);
+        setPlayedSongs([]);
+        setAttempt(0);
+        setSearch("");
+        setSelectedSong(null);
+        setMusicResults([]);
+        setResult(null);
+        setGameFinished(false);
+        setIsPreviewPlaying(false);
+        getTodaysSong();
+      }}
+      className="mt-4 border border-gray-300 px-5 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
+    >
+      Börja om
+    </button>
 
-      if (!firstSong) {
-        alert("Kunde inte hitta låten. Försök igen!");
-        return;
-      }
+    {!result && (
+      <button
+        onClick={async () => {
+          const newMatch = createMatch();
+          const firstSong = await getMatchSong(newMatch[0], []);
 
-      setMatchSongs(newMatch);
-      setMatchRound(0);
-      setMatchScore(0);
-      setUsedMatchTrackIds([firstSong.trackId]);
-      setUsedMatchSongs([firstSong]);
-      setTodaysSong(firstSong);
-      setGameMode("match");
-    }}
-    className="mt-4 border border-gray-300 px-5 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
-  >
-    ⚔️ Utmana en vän
-  </button>
+          if (!firstSong) {
+            alert("Kunde inte hitta låten. Försök igen!");
+            return;
+          }
+
+          setMatchSongs(newMatch);
+          setMatchRound(0);
+          setMatchScore(0);
+          setUsedMatchTrackIds([firstSong.trackId]);
+          setUsedMatchSongs([firstSong]);
+          setTodaysSong(firstSong);
+          setGameMode("match");
+        }}
+        className="mt-4 ml-2 border border-gray-300 px-5 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
+      >
+        ⚔️ Utmana en vän
+      </button>
+    )}
+  </div>
 )}
 
-</div>
 
       </main>
     </div>
