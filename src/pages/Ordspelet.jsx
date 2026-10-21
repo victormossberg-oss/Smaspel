@@ -79,7 +79,7 @@ function App() {
 
         // Hemliga ord ska ha 4–8 bokstäver.
         const solutions = dictionary.filter(
-          (word) => [...word].length >= 4 && [...word].length <= 8
+          (word) => [...word].length >= 4 && [...word].length <= 6
         );
 
         if (solutions.length === 0) {
@@ -120,7 +120,7 @@ function App() {
     const candidates = words.filter(
       (word) =>
         [...word].length >= 4 &&
-        [...word].length <= 8 &&
+        [...word].length <= 6 &&
         word !== exclude
     );
 
