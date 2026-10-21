@@ -465,22 +465,24 @@ const togglePreview = () => {
     </p>
 
 
+
 <button
   type="button"
   onClick={playAudio}
   aria-label="Spela upp låten"
-  className="mx-auto mt-8 flex h-20 w-20 items-center justify-center rounded-full border border-white/20 bg-white text-black shadow-lg transition-all duration-200 hover:scale-105 hover:bg-gray-200 active:scale-95 sm:h-24 sm:w-24"
+  className="mx-auto mt-8 flex h-20 w-20 items-center justify-center rounded-full border border-white/20 bg-[#111111] text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#292929] active:scale-95"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="ml-1 h-8 w-8 sm:h-9 sm:w-9"
+    className="ml-1 h-8 w-8"
     aria-hidden="true"
   >
     <path d="M7 4.8c0-.8.9-1.3 1.6-.9l11 6.2a1 1 0 0 1 0 1.8l-11 6.2c-.7.4-1.6-.1-1.6-.9V4.8Z" />
   </svg>
 </button>
+
 
             <button
   onClick={skipToNextClip}
@@ -594,12 +596,23 @@ const togglePreview = () => {
           {gameMode === "endless" && !gameFinished && (
             <>
             
-              <button
-                onClick={playAudio}
-                className="w-24 h-24 mx-auto mb-8 flex items-center justify-center bg-black text-white rounded-full text-3xl hover:scale-105 transition"
-              >
-                ▶
-              </button>
+
+<button
+  type="button"
+  onClick={playAudio}
+  aria-label="Spela upp låten"
+className="!mx-auto !mb-8 !flex !h-20 !w-20 !items-center !justify-center !rounded-full !border !border-white/20 !bg-[#111111] !text-white shadow-lg transition-all duration-200 hover:scale-105 active:scale-95">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="ml-1 h-8 w-8"
+    aria-hidden="true"
+  >
+    <path d="M7 4.8c0-.8.9-1.3 1.6-.9l11 6.2a1 1 0 0 1 0 1.8l-11 6.2c-.7.4-1.6-.1-1.6-.9V4.8Z" />
+  </svg>
+</button>
+
 
 <button
   onClick={skipToNextClip}
