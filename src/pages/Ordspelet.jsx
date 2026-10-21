@@ -294,6 +294,7 @@ function App() {
       </header>
 
       <section className="game">
+  <div className="game-main">
         <p className="hint">
           Ordet har <strong>{[...answer].length}</strong> bokstäver.
         </p>
@@ -304,7 +305,11 @@ function App() {
             const isCurrent = row === guesses.length && !gameOver;
 
             return (
-              <div className="board-row" key={row}>
+              <div
+  className="board-row"
+  key={row}
+  style={{ "--word-length": [...answer].length }}
+>
                 {Array.from({ length: [...answer].length }, (_, col) => {
                   const letter = submitted
                     ? [...submitted.word][col]
@@ -334,6 +339,7 @@ function App() {
             );
           })}
         </div>
+          </div>
 
         <p
           className={`message ${won ? "success" : ""}`}
@@ -423,9 +429,11 @@ function App() {
           ))}
         </div>
 
-        <button className="restart" onClick={() => pickNewAnswer(answer)}>
-          Nytt ord
-        </button>
+{gameOver && (
+  <button className="restart" onClick={() => pickNewAnswer(answer)}>
+    Nytt ord
+  </button>
+)}
       </section>
     </main>
   );
