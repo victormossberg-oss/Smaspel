@@ -735,7 +735,7 @@ className="!mx-auto !mb-8 !flex !h-20 !w-20 !items-center !justify-center !round
         />
 
         <span className="absolute inset-0 flex items-center justify-center bg-black/35 transition group-hover:bg-black/50">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black sm:bg-white sm:text-black max-sm:border max-sm:border-white/30 max-sm:!bg-black/70 max-sm:!text-white max-sm:shadow-lg max-sm:backdrop-blur-sm">
             {isPreviewPlaying ? "Ⅱ" : "▶"}
           </span>
         </span>
@@ -803,7 +803,7 @@ className="!mx-auto !mb-8 !flex !h-20 !w-20 !items-center !justify-center !round
         />
 
         <span className="absolute inset-0 flex items-center justify-center bg-black/35 transition group-hover:bg-black/50">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black sm:bg-white sm:text-black max-sm:border max-sm:border-white/30 max-sm:!bg-black/70 max-sm:!text-white max-sm:shadow-lg max-sm:backdrop-blur-sm">
             {isPreviewPlaying ? "Ⅱ" : "▶"}
           </span>
         </span>
@@ -889,31 +889,30 @@ className="!mx-auto !mb-8 !flex !h-20 !w-20 !items-center !justify-center !round
     >
       Börja om
     </button>
+{false && (
+  <button
+    onClick={async () => {
+      const newMatch = createMatch();
+      const firstSong = await getMatchSong(newMatch[0], []);
 
-    {!result && (
-      <button
-        onClick={async () => {
-          const newMatch = createMatch();
-          const firstSong = await getMatchSong(newMatch[0], []);
+      if (!firstSong) {
+        alert("Kunde inte hitta låten. Försök igen!");
+        return;
+      }
 
-          if (!firstSong) {
-            alert("Kunde inte hitta låten. Försök igen!");
-            return;
-          }
-
-          setMatchSongs(newMatch);
-          setMatchRound(0);
-          setMatchScore(0);
-          setUsedMatchTrackIds([firstSong.trackId]);
-          setUsedMatchSongs([firstSong]);
-          setTodaysSong(firstSong);
-          setGameMode("match");
-        }}
-        className="mt-4 ml-2 border border-gray-300 px-5 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
-      >
-        ⚔️ Utmana en vän
-      </button>
-    )}
+      setMatchSongs(newMatch);
+      setMatchRound(0);
+      setMatchScore(0);
+      setUsedMatchTrackIds([firstSong.trackId]);
+      setUsedMatchSongs([firstSong]);
+      setTodaysSong(firstSong);
+      setGameMode("match");
+    }}
+    className="mt-4 ml-2 border border-gray-300 px-5 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
+  >
+    ⚔️ Utmana en vän
+  </button>
+)}
   </div>
 )}
 
