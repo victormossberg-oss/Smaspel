@@ -476,7 +476,7 @@ const togglePreview = () => {
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="ml-1 h-8 w-8"
+    className="h-8 w-8 translate-x-0.5"
     aria-hidden="true"
   >
     <path d="M7 4.8c0-.8.9-1.3 1.6-.9l11 6.2a1 1 0 0 1 0 1.8l-11 6.2c-.7.4-1.6-.1-1.6-.9V4.8Z" />
@@ -705,135 +705,132 @@ className="!mx-auto !mb-8 !flex !h-20 !w-20 !items-center !justify-center !round
             </>
           )}
 
-          {/* RÄTT */}
-          {result === "correct" && (
-            <div className="mt-8 text-center">
 
-              <h2 className="text-3xl font-bold text-green-600">
-                RÄTT!
-              </h2>
+{/* RÄTT */}
+{result === "correct" && (
+  <div className="!mt-6 !rounded-3xl !border !border-white/10 !bg-[#171719] !p-6 text-center !text-white sm:!p-8">
+    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10 text-3xl">
+      ✓
+    </div>
 
-              <p className="text-xl font-semibold mt-4">
-                {todaysSong?.trackName}
-              </p>
+    <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-gray-400">
+      Snyggt jobbat
+    </p>
 
-              <p className="text-gray-500">
-                {todaysSong?.artistName}
-              </p>
+    <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+      Rätt!
+    </h2>
 
-              {todaysSong?.artworkUrl100 && (
-<button
-  onClick={togglePreview}
-  className="relative w-56 h-56 mx-auto mt-6 rounded-2xl overflow-hidden shadow-xl group"
->
-  <img
-    src={todaysSong.artworkUrl100.replace("100x100", "600x600")}
-    alt={`${todaysSong.trackName} albumomslag`}
-    className="w-full h-full object-cover"
-  />
+    {todaysSong?.artworkUrl100 && (
+      <button
+        type="button"
+        onClick={togglePreview}
+        aria-label="Spela upp låten igen"
+        className="group relative mx-auto mt-6 block aspect-square w-40 overflow-hidden !rounded-2xl !border !border-white/10 !bg-[#222224] shadow-xl sm:w-48"
+      >
+        <img
+          src={todaysSong.artworkUrl100.replace("100x100", "600x600")}
+          alt={`${todaysSong.trackName} albumomslag`}
+          className="h-full w-full object-cover"
+        />
 
-  <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition">
-<span className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-  {isPreviewPlaying ? (
-    <span className="flex gap-1">
-      <span className="w-2 h-7 bg-black rounded-full"></span>
-      <span className="w-2 h-7 bg-black rounded-full"></span>
-    </span>
-  ) : (
-    <span className="ml-1 text-black text-3xl">
-      ▶
-    </span>
-  )}
-</span>
+        <span className="absolute inset-0 flex items-center justify-center bg-black/35 transition group-hover:bg-black/50">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black">
+            {isPreviewPlaying ? "Ⅱ" : "▶"}
+          </span>
+        </span>
+      </button>
+    )}
+
+    <h3 className="mt-6 text-2xl font-bold">
+      {todaysSong?.trackName}
+    </h3>
+
+    <p className="mt-2 text-gray-400">
+      {todaysSong?.artistName}
+    </p>
+
+    <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4">
+      <p className="text-sm text-gray-400">Du fick</p>
+      <p className="mt-1 text-3xl font-extrabold">
+        +{points[attempt]} poäng
+      </p>
+      <p className="mt-1 text-sm text-gray-400">
+        Du gissade på {clipLengths[attempt].toString().replace(".", ",")}{" "}
+        {clipLengths[attempt] === 1 ? "sekund" : "sekunder"}
+      </p>
+    </div>
+
+    <button
+      type="button"
+      onClick={gameMode === "match" ? nextMatchSong : nextSong}
+      className="!mt-6 !flex !w-full !items-center !justify-center !rounded-xl !border !border-white !bg-white !px-5 !py-4 !font-bold !text-black transition hover:!bg-gray-200 active:scale-[0.98]"
+    >
+      Nästa låt <span className="ml-2">→</span>
+    </button>
   </div>
-</button>
 )}
 
-              <p className="text-gray-500 mt-2">
-                Du klarade det på{" "}
-                {clipLengths[attempt]} sekunder.
-              </p>
 
-              <p className="text-2xl font-bold mt-4">
-                +{points[attempt]} poäng
-              </p>
+{/* FÖRLUST */}
+{result === "lost" && (
+  <div className="!mt-6 !rounded-3xl !border !border-white/10 !bg-[#171719] !p-6 text-center !text-white sm:!p-8">
+    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-white/15 bg-white/5 text-3xl text-gray-300">
+      ↻
+    </div>
 
-              <p className="text-gray-500 mt-6">
-                🎵 Redo för nästa?
-              </p>
+    <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-gray-400">
+      Bättre lycka nästa gång
+    </p>
 
-              <button
-  onClick={gameMode === "match" ? nextMatchSong : nextSong}
-  className="w-full mt-6 bg-black text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition"
->
-  Nästa låt
-</button>
+    <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+      Inte rätt
+    </h2>
 
-            </div>
-          )}
+    <p className="mt-3 text-gray-400">
+      Rätt svar var:
+    </p>
 
-          {/* FÖRLUST */}
-          {result === "lost" && (
-            <div className="mt-8 text-center">
+    {todaysSong?.artworkUrl100 && (
+      <button
+        type="button"
+        onClick={togglePreview}
+        aria-label="Spela upp låten"
+        className="group relative mx-auto mt-6 block aspect-square w-40 overflow-hidden !rounded-2xl !border !border-white/10 !bg-[#222224] shadow-xl sm:w-48"
+      >
+        <img
+          src={todaysSong.artworkUrl100.replace("100x100", "600x600")}
+          alt={`${todaysSong.trackName} albumomslag`}
+          className="h-full w-full object-cover"
+        />
 
-
-              <h2 className="text-3xl font-bold text-red-600">
-                INTE RÄTT
-              </h2>
-
-              <p className="text-xl font-semibold mt-4">
-                Rätt svar var:
-              </p>
-
-              <p className="text-2xl font-bold mt-2">
-                {todaysSong?.trackName}
-              </p>
-
-              <p className="text-gray-500">
-                {todaysSong?.artistName}
-              </p>
-
-              {todaysSong?.artworkUrl100 && (
-<button
-  onClick={togglePreview}
-  className="relative w-56 h-56 mx-auto mt-6 rounded-2xl overflow-hidden shadow-xl group"
->
-  <img
-    src={todaysSong.artworkUrl100.replace("100x100", "600x600")}
-    alt={`${todaysSong.trackName} albumomslag`}
-    className="w-full h-full object-cover"
-  />
-
-  <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition">
-    <span className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-      {isPreviewPlaying ? (
-        <span className="flex gap-1">
-          <span className="w-2 h-7 bg-black rounded-full"></span>
-          <span className="w-2 h-7 bg-black rounded-full"></span>
+        <span className="absolute inset-0 flex items-center justify-center bg-black/35 transition group-hover:bg-black/50">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black">
+            {isPreviewPlaying ? "Ⅱ" : "▶"}
+          </span>
         </span>
-      ) : (
-        <span className="ml-1 text-black text-3xl">
-          ▶
-        </span>
-      )}
-    </span>
+      </button>
+    )}
+
+    <h3 className="mt-6 text-2xl font-bold">
+      {todaysSong?.trackName}
+    </h3>
+
+    <p className="mt-2 text-gray-400">
+      {todaysSong?.artistName}
+    </p>
+
+
+    <button
+      type="button"
+      onClick={gameMode === "match" ? nextMatchSong : nextSong}
+      className="!mt-6 !flex !w-full !items-center !justify-center !rounded-xl !border !border-white !bg-white !px-5 !py-4 !font-bold !text-black transition hover:!bg-gray-200 active:scale-[0.98]"
+    >
+      Nästa låt <span className="ml-2">→</span>
+    </button>
   </div>
-</button>
 )}
 
-              <p className="text-gray-500 mt-6">
-                🎵 Redo för nästa?
-              </p>
-<button
-  onClick={gameMode === "match" ? nextMatchSong : nextSong}
-  className="w-full mt-6 bg-black text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition"
->
-  Nästa låt
-</button>
-              
-
-            </div>
-          )}
 
 {result === "matchFinished" && (
   <div className="text-center py-8">
