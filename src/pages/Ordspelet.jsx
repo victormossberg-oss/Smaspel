@@ -413,10 +413,6 @@ onAnimationEnd={() => {
         >
           Spela igen <span>→</span>
         </button>
-
-        <p className="result-footer">
-          småspel.se · Små spel. Stora utmaningar.
-        </p>
       </div>
     </div>,
     document.body
