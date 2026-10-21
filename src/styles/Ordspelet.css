@@ -551,3 +551,28 @@
   }
 }
 
+
+/* ========================================
+   Vänd upp bokstäverna en i taget
+======================================== */
+
+.tile.revealing {
+  animation: reveal-tile 450ms ease-in-out both;
+  animation-delay: calc(var(--tile-index, 0) * 180ms);
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+@keyframes reveal-tile {
+  0% {
+    transform: rotateX(90deg);
+  }
+
+  50% {
+    transform: rotateX(45deg);
+  }
+
+  100% {
+    transform: rotateX(0deg);
+  }
+}

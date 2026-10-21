@@ -45,7 +45,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [won, setWon] = useState(false);
-
+  const [isRevealing, setIsRevealing] = useState(false);
   // Läs in den svenska ordlistan en gång.
   useEffect(() => {
     let cancelled = false;
@@ -139,44 +139,59 @@ function App() {
     setMessage("");
     setGameOver(false);
     setWon(false);
+    setIsRevealing(false);
   }
 
-  function submitGuess() {
-    if (!dictionaryLoaded || !answer || gameOver) return;
 
-    const guess = normalizeWord(currentGuess.join(""));
+function submitGuess() {
+  if (!dictionaryLoaded || !answer || gameOver || isRevealing) return;
 
-    if (currentGuess.some((letter) => !letter)) {
-      setMessage("Fyll i alla bokstäver först.");
-      return;
-    }
+  const guess = normalizeWord(currentGuess.join(""));
 
-    if (!words.includes(guess)) {
-      setMessage("Ordet finns inte i ordlistan.");
-      return;
-    }
-
-    const feedback = getFeedback(guess, answer);
-    const nextGuesses = [...guesses, { word: guess, feedback }];
-
-    // Spara gissningen så att raden låses och färgläggs.
-    setGuesses(nextGuesses);
-    setCurrentGuess(Array([...answer].length).fill(""));
-    setActiveCell(0);
-    setMessage("");
-
-    if (guess === answer) {
-      setWon(true);
-      setGameOver(true);
-      setMessage("Rätt! Du hittade ordet!");
-    } else if (nextGuesses.length === 6) {
-      setGameOver(true);
-      setMessage(`Slut på försök! Ordet var ${answer}.`);
-    }
+  if (currentGuess.some((letter) => !letter)) {
+    setMessage("Fyll i alla bokstäver först.");
+    return;
   }
+
+  if (!words.includes(guess)) {
+    setMessage("Ordet finns inte i ordlistan.");
+    return;
+  }
+
+  const feedback = getFeedback(guess, answer);
+  const nextGuesses = [...guesses, { word: guess, feedback }];
+
+  setGuesses(nextGuesses);
+  setCurrentGuess(Array([...answer].length).fill(""));
+  setActiveCell(0);
+  setMessage("");
+  setIsRevealing(true);
+}
+
+
+function finishReveal() {
+  if (!isRevealing) return;
+
+  setIsRevealing(false);
+
+  const lastGuess = guesses[guesses.length - 1];
+
+  if (!lastGuess) return;
+
+  if (lastGuess.word === answer) {
+    setWon(true);
+    setGameOver(true);
+    setMessage("Rätt! Du hittade ordet!");
+  } else if (guesses.length === 6) {
+    setGameOver(true);
+    setMessage(`Slut på försök! Ordet var ${answer}.`);
+  }
+}
+
+
 
   function handleKey(key) {
-    if (!dictionaryLoaded || !answer || gameOver) return;
+    if (!dictionaryLoaded || !answer || gameOver || isRevealing) return;
 
     if (key === "ENTER") {
       submitGuess();
@@ -239,7 +254,7 @@ function App() {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [currentGuess, activeCell, guesses, answer, gameOver, dictionaryLoaded]);
+  }, [currentGuess, activeCell, guesses, answer, gameOver, dictionaryLoaded, isRevealing]);
 
   const keyboardRows = [
     [..."QWERTYUIOPÅ"],
@@ -303,6 +318,8 @@ function App() {
           {Array.from({ length: 6 }, (_, row) => {
             const submitted = guesses[row];
             const isCurrent = row === guesses.length && !gameOver;
+            const isRevealingRow =
+  isRevealing && submitted && row === guesses.length - 1;
 
             return (
               <div
@@ -323,9 +340,15 @@ function App() {
 
                   return (
                     <div
-                      className={`tile ${color} ${letter ? "filled" : ""} ${
-                        isCurrent && activeCell === col ? "active" : ""
-                      }`}
+className={`tile ${color} ${letter ? "filled" : ""} ${
+  isCurrent && activeCell === col ? "active" : ""
+} ${isRevealingRow ? "revealing" : ""}`}
+style={{ "--tile-index": col }}
+onAnimationEnd={() => {
+  if (isRevealingRow && col === [...answer].length - 1) {
+    finishReveal();
+  }
+}}
                       key={col}
                       onClick={() => {
                         if (isCurrent) setActiveCell(col);
