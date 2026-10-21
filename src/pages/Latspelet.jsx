@@ -775,9 +775,7 @@ className="!mx-auto !mb-8 !flex !h-20 !w-20 !items-center !justify-center !round
 {/* FÖRLUST */}
 {result === "lost" && (
   <div className="!mt-6 !rounded-3xl !border !border-white/10 !bg-[#171719] !p-6 text-center !text-white sm:!p-8">
-    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-white/15 bg-white/5 text-3xl text-gray-300">
-      ↻
-    </div>
+
 
     <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-gray-400">
       Bättre lycka nästa gång
