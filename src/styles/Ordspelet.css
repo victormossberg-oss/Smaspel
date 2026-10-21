@@ -1,0 +1,492 @@
+
+.app {
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+  background: #121417;
+  color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  text-align: center;
+  padding: 12px 0 24px;
+  border-bottom: 1px solid #34383e;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 5px;
+  font-weight: 800;
+}
+
+.header p {
+  color: #a5abb4;
+  font-size: 14px;
+}
+
+.game {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.hint {
+  text-align: center;
+  color: #c8cbd0;
+  margin: 22px 0;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.tile {
+  width: min(11vw, 52px);
+  height: min(11vw, 52px);
+  max-width: 52px;
+  max-height: 52px;
+  border: 2px solid #454a52;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(18px, 5vw, 25px);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.tile.filled {
+  border-color: #9298a2;
+}
+
+.tile.green,
+.key.green {
+  background: #538d4e;
+  border-color: #538d4e;
+  color: white;
+}
+
+.tile.yellow,
+.key.yellow {
+  background: #b59f3b;
+  border-color: #b59f3b;
+  color: white;
+}
+
+.tile.gray,
+.key.gray {
+  background: #555a62;
+  border-color: #555a62;
+  color: white;
+}
+
+.message {
+  min-height: 28px;
+  text-align: center;
+  font-weight: 600;
+  margin: 16px 0;
+}
+
+.message.success {
+  color: #86d982;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.key {
+  min-width: 0;
+  flex: 1;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: #858b94;
+  color: white;
+  font-size: clamp(12px, 3vw, 16px);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.key.wide {
+  flex: 1.6;
+  font-size: 11px;
+}
+
+.key:disabled {
+  cursor: default;
+}
+
+.new-game,
+.restart {
+  display: block;
+  margin: 12px auto;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #f28c28;
+  color: #171717;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.restart {
+  background: #30353d;
+  color: white;
+}
+
+@media (max-width: 380px) {
+  .board-row {
+    gap: 4px;
+  }
+
+  .tile {
+    width: 10.5vw;
+    height: 10.5vw;
+  }
+
+  .keyboard-row {
+    gap: 3px;
+  }
+
+  .key {
+    height: 42px;
+  }
+}
+
+
+.tile {
+  cursor: pointer;
+}
+
+.tile.active {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1px #888888;
+}
+
+.message {
+  min-height: 28px;
+  text-align: center;
+  font-weight: 600;
+  margin: 16px 0;
+}
+
+.message:not(:empty) {
+  color: #e11300;
+}
+
+.message.success {
+  color: #86d982;
+}
+
+
+/* Gemensamt tema för småspel.se */
+
+.app {
+  background: #141519;
+  color: #f5f5f7;
+}
+
+.header {
+  border-bottom-color: #303137;
+}
+
+.header h1 {
+  color: #f5f5f7;
+}
+
+.header p,
+.hint {
+  color: #a6a7af;
+}
+
+/* Resultatkort */
+
+.result-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 36px auto;
+  padding: 32px 24px;
+  border: 1px solid #34353b;
+  border-radius: 20px;
+  background: #202126;
+  text-align: center;
+  box-shadow: 0 18px 50px #00000030;
+  animation: result-appear 250ms ease-out;
+}
+
+.result-icon {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: #30271f;
+  font-size: 32px;
+}
+
+.result-eyebrow {
+  margin: 0 0 8px;
+  color: #f58a24;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.result-card h2 {
+  margin: 0;
+  font-size: clamp(23px, 5vw, 30px);
+  letter-spacing: -0.5px;
+}
+
+.result-description {
+  margin: 14px 0 20px;
+  color: #a6a7af;
+  line-height: 1.6;
+}
+
+.result-word {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin: 24px 0;
+}
+
+
+.result-word span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 48px;
+  border: 1px solid #538d4e;
+  border-radius: 8px;
+  background: #538d4e;
+  color: #ffffff;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+
+.result-play-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 20px;
+  border: 0;
+  border-radius: 10px;
+  background: #f58a24;
+  color: #171717;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.result-play-button:hover {
+  background: #ffa344;
+  transform: translateY(-1px);
+}
+
+.result-footer {
+  margin: 22px 0 0;
+  color: #777983;
+  font-size: 12px;
+}
+
+@keyframes result-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 420px) {
+  .result-card {
+    padding: 26px 16px;
+  }
+
+  .result-word {
+    gap: 4px;
+  }
+
+  .result-word span {
+    width: min(42px, 15vw);
+    height: 44px;
+    font-size: 20px;
+  }
+}
+
+
+.result-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  background: rgb(10 11 14 / 78%);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  animation: overlay-appear 180ms ease-out;
+}
+
+.result-overlay .result-card {
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+}
+
+@keyframes overlay-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .result-overlay {
+    padding: 14px;
+  }
+
+  .result-overlay .result-card {
+    padding: 26px 18px;
+  }
+}
+
+
+/* småspel.se — klassiskt svartvitt tema */
+
+.app {
+  background: #0b0b0c;
+  color: #ffffff;
+}
+
+.header {
+  border-bottom-color: #303034;
+}
+
+.header h1,
+.header p,
+.hint {
+  color: #ffffff;
+}
+
+.header p {
+  opacity: 0.7;
+}
+
+/* Resultatfönster */
+
+.result-overlay {
+  background: rgb(0 0 0 / 82%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.result-card {
+  background: #202024;
+  border: 1px solid #39393f;
+  color: #ffffff;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 45%);
+}
+
+.result-icon {
+  background: #303034;
+}
+
+.result-eyebrow {
+  color: #ffffff;
+}
+
+.result-card h2 {
+  color: #ffffff;
+}
+
+.result-description {
+  color: #c3c3ca;
+}
+
+/* Rätt svar behåller grönt */
+
+.result-word span {
+  background: #538d4e;
+  border-color: #538d4e;
+  color: #ffffff;
+}
+
+/* Vit huvudknapp i stället för orange */
+
+.result-play-button {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid #ffffff;
+}
+
+.result-play-button:hover {
+  background: #e5e5e5;
+  color: #111111;
+}
+
+.result-footer {
+  color: #92929a;
+}
+
+/* Övriga knappar */
+
+.restart,
+.new-game {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid #ffffff;
+}
+
+.restart:hover,
+.new-game:hover {
+  background: #e5e5e5;
+}
+
+/* Felmeddelanden ska vara tydliga */
+
+.message:not(:empty) {
+  color: #ffffff;
+}
+
+.message.success {
+  color: #86d982;
+}
+

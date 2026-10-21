@@ -1,0 +1,199 @@
+
+/* Låtspelet – samma svartvita stil som Ordspelet */
+
+.latspelet {
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+  background: #0b0b0c;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.latspelet .header {
+  text-align: center;
+  padding: 12px 0 24px;
+  border-bottom: 1px solid #303034;
+  margin-bottom: 24px;
+}
+
+.latspelet .header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 30px;
+  letter-spacing: 5px;
+  font-weight: 800;
+}
+
+.latspelet .header p {
+  color: #a6a7af;
+  font-size: 14px;
+}
+
+.latspelet .game {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.latspelet button {
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.latspelet .game button {
+  border-radius: 8px;
+}
+
+.latspelet .game .primary-button {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid #ffffff;
+  font-weight: 700;
+}
+
+.latspelet .game .primary-button:hover {
+  background: #e5e5e5;
+}
+
+.latspelet .game .secondary-button {
+  background: #202024;
+  color: #ffffff;
+  border: 1px solid #39393f;
+}
+
+.latspelet .game .secondary-button:hover {
+  background: #303034;
+}
+
+.latspelet .game input {
+  background: #202024;
+  color: #ffffff;
+  border-color: #39393f;
+}
+
+.latspelet .game input::placeholder {
+  color: #92929a;
+}
+
+.latspelet .game input:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+
+/* Låtspelet – samma tema som Ordspelet */
+
+.latspelet {
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+  background: #0b0b0c;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.latspelet .game {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.latspelet .header {
+  text-align: center;
+  padding: 12px 0 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #303034;
+}
+
+.latspelet .header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 30px;
+  letter-spacing: 5px;
+  font-weight: 800;
+}
+
+/* Mörka kort och poängrutor */
+
+.latspelet .bg-white {
+  background: #202024;
+}
+
+.latspelet .border-gray-200,
+.latspelet .border-gray-300 {
+  border-color: #39393f;
+}
+
+.latspelet .text-black,
+.latspelet .text-gray-900 {
+  color: #ffffff;
+}
+
+.latspelet .text-gray-500 {
+  color: #a6a7af;
+}
+
+.latspelet .text-gray-400 {
+  color: #92929a;
+}
+
+/* Sökfält */
+
+.latspelet input {
+  background: #151518;
+  color: #ffffff;
+  border-color: #39393f;
+}
+
+.latspelet input::placeholder {
+  color: #92929a;
+}
+
+.latspelet input:focus {
+  --tw-ring-color: #ffffff;
+}
+
+/* Sökresultat */
+
+.latspelet .border-b {
+  border-color: #39393f;
+}
+
+.latspelet .hover\:bg-gray-100:hover {
+  background: #303034;
+}
+
+/* Huvudknappar */
+
+.latspelet button.bg-black {
+  background: #ffffff;
+  color: #111111;
+}
+
+.latspelet button.bg-black:hover {
+  background: #e5e5e5;
+}
+
+/* Vanliga sekundära knappar */
+
+.latspelet button.border-gray-300 {
+  background: transparent;
+  color: #ffffff;
+}
+
+.latspelet button.border-gray-300:hover {
+  background: #303034;
+}
+
+/* Ikoner och rubriker */
+
+.latspelet .text-orange-500 {
+  color: #ffffff;
+}
+
+/* Behåll tydliga återkopplingsfärger för svar */
+.latspelet .text-green-600 {
+  color: #86d982;
+}
+
+.latspelet .text-red-600 {
+  color: #ff7777;
+}
